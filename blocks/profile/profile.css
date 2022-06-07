@@ -1,0 +1,29 @@
+.profile {
+  padding-top: 40px;
+  width: 880px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, max-content) auto;
+  column-gap: 30px;
+  align-items: center;
+}
+
+@media screen and (max-width: 1024px) {
+  .profile {
+    width: calc(100% - 72px * 2);
+  }
+}
+
+@media screen and (max-width: 815px) {
+  .profile {
+    grid-template-columns: repeat(1, 1fr);
+    place-items: center;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .profile {
+    padding-top: 42px;
+    width: calc(100% - 19px * 2);
+  }
+}

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./pages/index.css" />
+    <title>Место</title>
+  </head>
+
+  <body class="page">
+    <header class="header">
+      <img src="./images/header-logo.svg" alt="Лого" class="header__logo" />
+    </header>
+    <main class="content">
+      <section class="profile">
+        <img
+          src="./images/profile-avatar.jpg"
+          alt="Аватар"
+          class="profile__avatar"
+        />
+        <div class="profile__info">
+          <div class="profile__content">
+            <p class="profile__name">Жак-Ив Кусто</p>
+            <button class="profile__edit-button"></button>
+          </div>
+          <p class="profile__job">Исследователь океана</p>
+        </div>
+        <button class="profile__add-button"></button>
+      </section>
+      <section class="elements">
+        <article class="element">
+          <img
+            src="./images/element-elbrus.jpg"
+            alt="эльбрус"
+            class="element__image"
+          />
+          <div class="element__content">
+            <h2 class="element__title">Эльбрус</h2>
+            <button class="element__like-button"></button>
+          </div>
+        </article>
+        <article class="element">
+          <img
+            src="./images/element-kamchatka.jpg"
+            alt="Камчатка"
+            class="element__image"
+          />
+          <div class="element__content">
+            <h2 class="element__title">Камчатка</h2>
+            <button class="element__like-button"></button>
+          </div>
+        </article>
+        <article class="element">
+          <img
+            src="./images/element-karelia.jpg"
+            alt="Карелия"
+            class="element__image"
+          />
+          <div class="element__content">
+            <h2 class="element__title">Карелия</h2>
+            <button class="element__like-button"></button>
+          </div>
+        </article>
+        <article class="element">
+          <img
+            src="./images/element-karachaevsk.jpg"
+            alt="Карачаевск"
+            class="element__image"
+          />
+          <div class="element__content">
+            <h2 class="element__title">Карачаевск</h2>
+            <button class="element__like-button"></button>
+          </div>
+        </article>
+        <article class="element">
+          <img
+            src="./images/element-kosa.jpg"
+            alt="Куршская коса"
+            class="element__image"
+          />
+          <div class="element__content">
+            <h2 class="element__title">Куршская коса</h2>
+            <button class="element__like-button"></button>
+          </div>
+        </article>
+        <article class="element">
+          <img
+            src="./images/element-sochi.jpg"
+            alt="Сочи"
+            class="element__image"
+          />
+          <div class="element__content">
+            <h2 class="element__title">Сочи</h2>
+            <button class="element__like-button"></button>
+          </div>
+        </article>
+      </section>
+      <div class="popup">
+        <div class="popup__container">
+          <p class="popup__title">Редактировать профиль</p>
+          <form class="popup__form">
+            <input
+              class="popup__field popup__field_name"
+              type="text"
+              placeholder="Как Вас зовут?"
+            />
+            <input
+              class="popup__field popup__field_job"
+              type="text"
+              placeholder="Ваша работа"
+            />
+            <button class="popup__submit-button">Сохранить</button>
+          </form>
+          <button class="popup__close-button"></button>
+        </div>
+      </div>
+    </main>
+    <footer class="footer">
+      <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
+    </footer>
+    <script src="./script.js"></script>
+  </body>
+</html>
