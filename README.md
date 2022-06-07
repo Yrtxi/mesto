@@ -6,7 +6,7 @@
 
 ------
 **Посмотреть:**
-https://yrtxi.github.io/russian-travel/
+https://yrtxi.github.io/mesto/
 
 **Технологии**
 * Проект выполнен на HTML, CSS и JS. 
