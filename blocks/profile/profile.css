@@ -18,12 +18,18 @@
   .profile {
     grid-template-columns: repeat(1, 1fr);
     place-items: center;
+    padding-top: 42px;
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
   .profile {
-    padding-top: 42px;
     width: calc(100% - 19px * 2);
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .profile {
+    width: 282px;
   }
 }
