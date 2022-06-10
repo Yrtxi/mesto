@@ -10,9 +10,9 @@
   border: none;
   background-color: white;
   cursor: pointer;
+  transition: 0.8s ease-in-out;
 }
 
 .element__like-button:hover {
   opacity: 0.5;
-  transition: 0.8s ease-in-out;
 }

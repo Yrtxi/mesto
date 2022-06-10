@@ -11,11 +11,11 @@
   background-position: center;
   justify-self: end;
   cursor: pointer;
+  transition: 0.8s ease-in-out;
 }
 
 .profile__add-button:hover {
   opacity: 0.6;
-  transition: 0.8s ease-in-out;
 }
 
 @media screen and (max-width: 815px) {
