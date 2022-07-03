@@ -128,21 +128,45 @@ function openImage({ nameCard, linkCard }) {
   openPopup(imgTypePopup);
 }
 
+//функция открытия попапа
 function openPopup(popupElement) {
   popupElement.classList.add("popup_opened");
+  document.addEventListener("keydown", closeOnEsc);
+  popupElement.addEventListener("mousedown", closeOnCLick);
 }
 
+//функция закрытия попапа
 function closePopup(popupElement) {
   popupElement.classList.remove("popup_opened");
+  document.removeEventListener("keydown", closeOnEsc);
+  popupElement.removeEventListener("mousedown", closeOnCLick);
+}
+
+//Функция закрытия попапа на ESC
+function closeOnEsc(evt) {
+  if (evt.key === "Escape") {
+    const openPopup = document.querySelector(".popup_opened");
+    closePopup(openPopup);
+  }
+}
+
+//Функция закрытия по клику
+function closeOnCLick(evt) {
+  if (evt.target.classList.contains("popup_opened")) {
+    const openPopup = document.querySelector(".popup_opened");
+    closePopup(openPopup);
+  }
 }
 
 editButtonProfile.addEventListener("click", function () {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
+  resetValidation(document.forms.form_type_edit, config);
   openPopup(editPopup);
 });
 
 addButtonProfile.addEventListener("click", function () {
+  resetValidation(document.forms.form_type_add, config);
   openPopup(addPopup);
 });
 
