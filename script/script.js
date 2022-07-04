@@ -26,34 +26,6 @@ const subtitlePopup = document.querySelector(".popup__subtitle");
 //Переменная кнопок закрытия попапов
 const closeButtons = document.querySelectorAll(".popup__close-button");
 
-//Массив с исходными значениями карточек
-const initialCards = [
-  {
-    nameCard: "Эльбрус",
-    linkCard: "./images/element-elbrus.jpg",
-  },
-  {
-    nameCard: "Камчатка",
-    linkCard: "./images/element-kamchatka.jpg",
-  },
-  {
-    nameCard: "Иваново",
-    linkCard: "./images/element-ivanovo.jpg",
-  },
-  {
-    nameCard: "Карелия",
-    linkCard: "./images/element-karelia.jpg",
-  },
-  {
-    nameCard: "Куршская коса",
-    linkCard: "./images/element-kosa.jpg",
-  },
-  {
-    nameCard: "Сочи",
-    linkCard: "./images/element-sochi.jpg",
-  },
-];
-
 //Берем темплейт с заготовкой карточки
 const cardTemplate = document.querySelector(".element-template").content;
 const cardContainer = document.querySelector(".elements");

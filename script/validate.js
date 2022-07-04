@@ -10,16 +10,16 @@ const config = {
 //Функция показа ошибки
 const showInputError = (formElement, inputElement, errorMessage) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.add("popup__input_type_error");
+  inputElement.classList.add(config.inputErrorClass);
   errorElement.textContent = errorMessage;
-  errorElement.classList.add("popup__error_visible");
+  errorElement.classList.add(config.errorClass);
 };
 
 //Фунция скрытия ошибки
 const hideInputError = (formElement, inputElement) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.remove("popup__input_type_error");
-  errorElement.classList.remove("popup__error_visible");
+  inputElement.classList.remove(config.inputErrorClass);
+  errorElement.classList.remove(config.errorClass);
   errorElement.textContent = " ";
 };
 
@@ -42,9 +42,11 @@ const hasInavlidInput = (inputList) => {
 //Функция переключения кнопки отправки формы
 const toggleButtonState = (inputList, buttonElement) => {
   if (hasInavlidInput(inputList)) {
-    buttonElement.classList.add("popup__button_disabled");
+    buttonElement.classList.add(config.inactiveButtonClass);
+    buttonElement.disabled = true;
   } else {
-    buttonElement.classList.remove("popup__button_disabled");
+    buttonElement.classList.remove(config.inactiveButtonClass);
+    buttonElement.disabled = false;
   }
 };
 
