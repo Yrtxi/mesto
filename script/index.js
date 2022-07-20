@@ -1,3 +1,8 @@
+//Импорт
+import { initialCards } from "./data.js";
+import { Card } from "./Card.js";
+import { config, FormValidator } from "./FormValidator.js";
+
 //Переменные кнопок добавления и редактирования профайла
 const editButtonProfile = document.querySelector(".profile__edit-button");
 const addButtonProfile = document.querySelector(".profile__add-button");
@@ -18,48 +23,30 @@ const formAddPopup = document.querySelector(".popup__form_type_add");
 const placeInput = formAddPopup.querySelector(".popup__input_data_place");
 const linkInput = formAddPopup.querySelector(".popup__input_data_link");
 
-//Переменные попапа-картинки
+//Переменные попапа картинки
 const imgTypePopup = document.querySelector(".popup_type_image");
 const imgPopup = document.querySelector(".popup__image");
-const subtitlePopup = document.querySelector(".popup__subtitle");
+const imgPopupSubtitle = document.querySelector(".popup__subtitle");
 
 //Переменная кнопок закрытия попапов
 const closeButtons = document.querySelectorAll(".popup__close-button");
 
-//Берем темплейт с заготовкой карточки
-const cardTemplate = document.querySelector(".element-template").content;
+//Переменная контейнера для карточек
 const cardContainer = document.querySelector(".elements");
 
-//функция создания карточки
-function createCard({ nameCard, linkCard }) {
-  const cardElement = cardTemplate.querySelector(".element").cloneNode(true);
-  const likeCardButton = cardElement.querySelector(".element__like-button");
-  const imageCard = cardElement.querySelector(".element__image");
-  imageCard.src = linkCard;
-  imageCard.alt = nameCard;
-  cardElement.querySelector(".element__title").textContent = nameCard;
-  //фунция переключения лайка
-  function toggleLike() {
-    likeCardButton.classList.toggle("element__like-button_active");
-  }
-  cardElement
-    .querySelector(".element__delete-button")
-    .addEventListener("click", function () {
-      deleteCard(cardElement);
-    });
-  likeCardButton.addEventListener("click", function () {
-    toggleLike();
-  });
-  imageCard.addEventListener("click", function () {
-    openImage({ nameCard, linkCard });
-  });
-  return cardElement;
-}
-
 //функция отрисовки карточки в нужном месте
-function renderCard({ nameCard, linkCard }) {
-  const card = createCard({ nameCard, linkCard });
-  cardContainer.prepend(card);
+function renderCard(item) {
+  const card = new Card(
+    item,
+    ".element-template",
+    imgTypePopup,
+    imgPopup,
+    imgPopupSubtitle,
+    openPopup
+  );
+  const cardElement = card.generateCard();
+
+  cardContainer.prepend(cardElement);
 }
 
 //функция отрисовки карточек из массива
@@ -70,9 +57,13 @@ function render() {
 //отрисовываем
 render();
 
-function deleteCard(cardElement) {
-  cardElement.remove();
-}
+//Cоздаем экземпляры класса FormValidator
+const validEdit = new FormValidator(config, document.forms.form_type_edit);
+const validAdd = new FormValidator(config, document.forms.form_type_add);
+
+//Включаем валидацию
+validEdit.enableValidation();
+validAdd.enableValidation();
 
 //функция добавления новой карточки ("отправка формы" попапа добавления)
 function addCard(evt) {
@@ -90,14 +81,6 @@ function handleProfileFormSubmit(evt) {
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
   closePopup(editPopup);
-}
-
-//функция "вставить нужную картинку" при открытии попапа-картинки
-function openImage({ nameCard, linkCard }) {
-  imgPopup.src = linkCard;
-  imgPopup.alt = nameCard;
-  subtitlePopup.textContent = nameCard;
-  openPopup(imgTypePopup);
 }
 
 //функция открытия попапа
@@ -130,15 +113,16 @@ function closeOnCLick(evt) {
   }
 }
 
+//Устанавливаем обработчики
 editButtonProfile.addEventListener("click", function () {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
-  resetValidation(document.forms.form_type_edit, config);
+  validEdit.resetValidation();
   openPopup(editPopup);
 });
 
 addButtonProfile.addEventListener("click", function () {
-  resetValidation(document.forms.form_type_add, config);
+  validAdd.resetValidation();
   openPopup(addPopup);
 });
 

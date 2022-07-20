@@ -1,5 +1,5 @@
 //Массив с исходными значениями карточек
-const initialCards = [
+export const initialCards = [
     {
       nameCard: "Эльбрус",
       linkCard: "./images/element-elbrus.jpg",
