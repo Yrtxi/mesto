@@ -34,8 +34,8 @@ const closeButtons = document.querySelectorAll(".popup__close-button");
 //Переменная контейнера для карточек
 const cardContainer = document.querySelector(".elements");
 
-//функция отрисовки карточки в нужном месте
-function renderCard(item) {
+//функция создания карточки
+function createCard(item) {
   const card = new Card(
     item,
     ".element-template",
@@ -45,13 +45,18 @@ function renderCard(item) {
     openPopup
   );
   const cardElement = card.generateCard();
+  return cardElement;
+}
 
+//функция вставки карточки в DOM
+function renderCard(cardElement) {
   cardContainer.prepend(cardElement);
 }
 
 //функция отрисовки карточек из массива
 function render() {
-  initialCards.forEach(renderCard);
+  const cards = initialCards.map(createCard);
+  cards.forEach(renderCard);
 }
 
 //отрисовываем
@@ -70,7 +75,8 @@ function addCard(evt) {
   evt.preventDefault();
   const nameCard = placeInput.value;
   const linkCard = linkInput.value;
-  renderCard({ nameCard, linkCard });
+  const card = createCard({ nameCard, linkCard });
+  renderCard(card);
   evt.target.reset();
   closePopup(addPopup);
 }
@@ -108,8 +114,7 @@ function closeOnEsc(evt) {
 //Функция закрытия по клику
 function closeOnCLick(evt) {
   if (evt.target.classList.contains("popup_opened")) {
-    const openPopup = document.querySelector(".popup_opened");
-    closePopup(openPopup);
+    closePopup(evt.target);
   }
 }
 
