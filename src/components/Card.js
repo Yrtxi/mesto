@@ -1,21 +1,9 @@
 export class Card {
-  constructor(
-    data,
-    cardSelector,
-    imgTypePopup,
-    imgPopup,
-    imgPopupSubtitle,
-    openPopup
-  ) {
+  constructor(data, cardSelector, handleCardClick) {
     this._nameCard = data.nameCard;
     this._linkCard = data.linkCard;
     this._cardSelector = cardSelector;
-    this._imgTypePopup = imgTypePopup;
-    this._imgPopup = imgPopup;
-    this._imgPopupSubtitle = imgPopupSubtitle;
-    this._openPopup = () => {
-      openPopup(this._imgTypePopup);
-    };
+    this._handleCardClick = handleCardClick;
   }
 
   //Берем темплейт с заготовкой карточки
@@ -54,14 +42,6 @@ export class Card {
     this._element.remove();
   }
 
-  //Метод открытия нужной картинки
-  _openImage() {
-    this._imgPopup.src = this._linkCard;
-    this._imgPopup.alt = this._nameCard;
-    this._imgPopupSubtitle.textContent = this._nameCard;
-    this._openPopup(this._imgTypePopup);
-  }
-
   //Добавляем слушатели
   _setEventListeners() {
     this._likeButton.addEventListener("click", () => {
@@ -70,8 +50,9 @@ export class Card {
     this._deleteButton.addEventListener("click", () => {
       this._deleteCard();
     });
+
     this._elementImage.addEventListener("click", () => {
-      this._openImage();
+      this._handleCardClick();
     });
   }
 }
