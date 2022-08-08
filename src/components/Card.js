@@ -40,6 +40,7 @@ export class Card {
   //Метод удаления карточки
   _deleteCard() {
     this._element.remove();
+    this._element = null;
   }
 
   //Добавляем слушатели

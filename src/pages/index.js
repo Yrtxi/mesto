@@ -14,16 +14,23 @@ import "./index.css";
 const editButtonProfile = document.querySelector(".profile__edit-button");
 const addButtonProfile = document.querySelector(".profile__add-button");
 
+//Переменные полей ввода формы
+const nameInput = document.querySelector(".popup__input_data_name");
+const jobInput = document.querySelector(".popup__input_data_job");
+
+//Функция создания новой карточки
+const greateNewCard = (data) => {
+  const card = new Card(data, ".element-template", () => handleCardClick(data));
+  const cardElement = card.generateCard();
+  return cardElement;
+};
+
 //Создаем экземпляр класса Section, отвечающевого за отрисовку элементов
 const cardsList = new Section(
   {
     items: initialCards,
     renderer: (item) => {
-      const card = new Card(item, ".element-template", () =>
-        handleCardClick(item)
-      );
-      const cardElement = card.generateCard();
-      cardsList.addItem(cardElement);
+      cardsList.addItem(greateNewCard(item));
     },
   },
   ".elements"
@@ -42,8 +49,8 @@ validAdd.enableValidation();
 
 //создаем экземпляр класса с информцией о пользователе
 const user = new UserInfo({
-  nameUser: ".profile__name",
-  infoUser: ".profile__job",
+  nameUserSelector: ".profile__name",
+  infoUserSelector: ".profile__job",
 });
 
 //Cоздаем экземляры классов попапов
@@ -60,11 +67,7 @@ const addTypePopup = new PopupWithForm({
   handleFormSubmit: ({ place, link }) => {
     const nameCard = place;
     const linkCard = link;
-    const card = new Card({ nameCard, linkCard }, ".element-template", () =>
-      handleCardClick({ nameCard, linkCard })
-    );
-    const cardElement = card.generateCard();
-    cardsList.addItem(cardElement);
+    cardsList.addItem(greateNewCard({ nameCard, linkCard }));
     addTypePopup.close();
   },
 });
@@ -74,19 +77,23 @@ const imgTypePopup = new PopupWithImage(".popup_type_image");
 //Функция открывающая полноразмерную картинку
 const handleCardClick = (data) => {
   imgTypePopup.open(data);
-  imgTypePopup.setEventListeners();
 };
+
+//Устанавливаем обработчики для попапов
+editTypePopup.setEventListeners();
+addTypePopup.setEventListeners();
+imgTypePopup.setEventListeners();
 
 //Устанавливаем обработчики
 editButtonProfile.addEventListener("click", function () {
+  nameInput.value = user.getUserInfo().name;
+  jobInput.value = user.getUserInfo().job;
   user.setUserInfo(user.getUserInfo());
   validEdit.resetValidation();
-  editTypePopup.setEventListeners();
   editTypePopup.open();
 });
 
 addButtonProfile.addEventListener("click", function () {
   validAdd.resetValidation();
-  addTypePopup.setEventListeners();
   addTypePopup.open();
 });

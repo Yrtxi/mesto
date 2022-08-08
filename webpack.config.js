@@ -38,11 +38,20 @@ module.exports = {
         // исключает папку node_modules, файлы в ней обрабатывать не нужно
         exclude: "/node_modules/",
       },
-      // правило для обработки файлов(картинки и шрифты)
+      // правила для обработки файлов(изображения и шрифты)
       {
-        // регулярное выражение, которое ищет все файлы с такими расширениями
-        test: /\.(png|svg|jpg|gif|woff(2)?|eot|ttf|otf)$/,
+        test: /\.(png|svg|jpg|gif)$/,
         type: "asset/resource",
+        generator: {
+          filename: "image/[hash][ext][query]",
+        },
+      },
+      {
+        test: /\.(woff(2)?|eot|ttf|otf)$/,
+        type: "asset/resource",
+        generator: {
+          filename: "fonts/[hash][ext][query]",
+        },
       },
       // правило для обработки CSS-файлов
       {
@@ -53,7 +62,11 @@ module.exports = {
           MiniCssExtractPlugin.loader,
           {
             loader: "css-loader",
+            // добавляем объект options
+            options: { importLoaders: 1 },
           },
+          // Добавляем postcss-loader
+          "postcss-loader",
         ],
       },
     ],

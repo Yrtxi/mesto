@@ -4,9 +4,9 @@ export class PopupWithImage extends Popup {
   constructor(popupSelector) {
     super(popupSelector);
 
-    this._imgPopup = this._popupSelector.querySelector(".popup__image");
+    this._imgPopup = this._popupElement.querySelector(".popup__image");
     this._imgPopupSubtitle =
-      this._popupSelector.querySelector(".popup__subtitle");
+      this._popupElement.querySelector(".popup__subtitle");
   }
 
   //Метод открытия полноразмерной картинки
