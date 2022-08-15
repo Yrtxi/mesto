@@ -65,9 +65,7 @@ const editTypePopup = new PopupWithForm({
 const addTypePopup = new PopupWithForm({
   popupSelector: ".popup_type_add",
   handleFormSubmit: ({ place, link }) => {
-    const nameCard = place;
-    const linkCard = link;
-    cardsList.addItem(greateNewCard({ nameCard, linkCard }));
+    cardsList.addItem(greateNewCard({ nameCard: place, linkCard: link }));
     addTypePopup.close();
   },
 });
@@ -88,7 +86,6 @@ imgTypePopup.setEventListeners();
 editButtonProfile.addEventListener("click", function () {
   nameInput.value = user.getUserInfo().name;
   jobInput.value = user.getUserInfo().job;
-  user.setUserInfo(user.getUserInfo());
   validEdit.resetValidation();
   editTypePopup.open();
 });
