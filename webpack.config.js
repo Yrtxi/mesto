@@ -18,6 +18,7 @@ module.exports = {
   },
   //режим разработчика
   mode: "development",
+  devtool: "inline-source-map",
   //настройки локального сервера
   devServer: {
     static: path.resolve(__dirname, "./dist"),

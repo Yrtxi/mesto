@@ -11,9 +11,9 @@ export class PopupWithImage extends Popup {
 
   //Метод открытия полноразмерной картинки
   open(data) {
-    this._imgPopup.src = data.linkCard;
-    this._imgPopup.alt = data.nameCard;
-    this._imgPopupSubtitle.textContent = data.nameCard;
+    this._imgPopup.src = data.link;
+    this._imgPopup.alt = data.name;
+    this._imgPopupSubtitle.textContent = data.name;
     super.open();
   }
 }

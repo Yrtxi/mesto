@@ -1,6 +1,6 @@
 .element__content {
   width: calc(100% - (21px + 15px));
-  min-height: 23px;
+  min-height: 38px;
   display: flex;
   justify-content: space-between;
   align-items: center;
