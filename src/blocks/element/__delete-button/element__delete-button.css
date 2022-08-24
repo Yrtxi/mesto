@@ -11,7 +11,6 @@
   background-position: center;
   background-color: transparent;
   transition: 0.8s ease-in-out;
-  z-index: 3;
 }
 
 .element__delete-button:hover {

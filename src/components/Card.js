@@ -1,6 +1,7 @@
 export class Card {
   constructor(
     { data, cardSelector },
+    myId,
     handleLikeClick,
     handleCardClick,
     handleDelClick
@@ -8,8 +9,7 @@ export class Card {
     this._nameCard = data.name;
     this._linkCard = data.link;
     this._countLikesCard = data.likes;
-    this._likeStatus = data.likes.some((i) => i._id === "ee10f8d1d8ed794bc4e9a572");
-
+    this._likeStatus = data.likes.some((i) => i._id === myId);
     this._cardSelector = cardSelector;
     this._handleLikeClick = handleLikeClick;
     this._handleCardClick = handleCardClick;
@@ -64,7 +64,7 @@ export class Card {
   //Добавляем слушатели
   _setEventListeners() {
     this._likeButton.addEventListener("click", () => {
-      this._handleLikeClick(this.like);
+      this._handleLikeClick();
     });
 
     if (this._deleteButton) {

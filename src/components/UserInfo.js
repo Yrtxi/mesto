@@ -10,12 +10,12 @@ export class UserInfo {
     this._userValues = {
       name: this._nameUser.textContent,
       about: this._infoUser.textContent,
-      avatar: this._avatarUser.src
+      avatar: this._avatarUser.src,
     };
 
     return this._userValues;
   }
-
+ 
   //Принимаем данные пользователя и добавляем их на страницу
   setUserInfo({ name, about, avatar }) {
     this._nameUser.textContent = name;

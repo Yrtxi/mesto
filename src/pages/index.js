@@ -36,8 +36,8 @@ validAvatar.enableValidation();
 //Создаем экземпляр класса Api
 const api = new Api(options);
 
-//Переменная с моим id
-const myId = "ee10f8d1d8ed794bc4e9a572";
+//Переменная с id (потом перезапишем из промиса)
+let myId = null;
 
 //Функция создания новой карточки
 const generateNewCard = (data) => {
@@ -49,6 +49,7 @@ const generateNewCard = (data) => {
           ? ".element-template"
           : ".element-template_type_notrash",
     },
+    myId,
     () => handleLikeClick(data, cardElement),
     () => handleCardClick(data),
     () => handleDelClick(data, cardElement)
@@ -65,15 +66,6 @@ const cardsList = new Section({
   containerSelector: ".elements",
 });
 
-//Получаем массив карточек с сервера
-api
-  .getInitialCards()
-  .then((data) => {
-    //отрисовываем карточки
-    cardsList.renderItems(data);
-  })
-  .catch((err) => console.log(err));
-
 //создаем экземпляр класса с информцией о пользователе
 const user = new UserInfo({
   nameUserSelector: ".profile__name",
@@ -81,17 +73,17 @@ const user = new UserInfo({
   avatarUserSelector: ".profile__avatar",
 });
 
-//Получаем данные пользователя с сервера и добавляем их в разметку
-api
-  .getInfoUser()
-  .then((data) => {
-    user.setUserInfo({
-      name: data.name,
-      about: data.about,
-      avatar: data.avatar,
-    });
+//в Promise.all передаем массив промисов которые нужно выполнить
+Promise.all([api.getInfoUser(), api.getInitialCards()])
+  .then(([userData, cardsArray]) => {
+    //oпределяем id пользователя
+    myId = userData._id;
+    //Вставляем данные пользователя в разметку
+    user.setUserInfo(userData);
+    //отрисовываем карточки
+    cardsList.renderItems(cardsArray);
   })
-  .catch((err) => console.log(err));
+  .catch((err) => console.log(`Ошибка загрузки данных: ${err}`));
 
 //Cоздаем экземляры классов попапов
 const editTypePopup = new PopupWithForm({
@@ -106,12 +98,12 @@ const editTypePopup = new PopupWithForm({
           about: data.about,
           avatar: data.avatar,
         });
+        editTypePopup.close();
       })
-      .catch((err) => console.log(err))
+      .catch((err) => console.log(`Ошибка загрузки данных: ${err}`))
       .finally(() =>
         renderLoading(false, document.forms.form_type_edit, "Cохранить")
       );
-    editTypePopup.close();
   },
 });
 
@@ -123,12 +115,12 @@ const addTypePopup = new PopupWithForm({
       .addNewCard({ name: place, link: link })
       .then((data) => {
         cardsList.addItemPrepend(generateNewCard(data));
+        addTypePopup.close();
       })
-      .catch((err) => console.log(err))
+      .catch((err) => console.log(`Ошибка загрузки данных: ${err}`))
       .finally(() =>
         renderLoading(false, document.forms.form_type_add, "Cоздать")
       );
-    addTypePopup.close();
   },
 });
 
@@ -140,18 +132,14 @@ const avatarTypePopup = new PopupWithForm({
     renderLoading(true, document.forms.form_type_avatar, "Сохранить");
     api
       .changeAvatar(avatar)
-      .then((data) => {
-        user.setUserInfo({
-          name: data.name,
-          about: data.about,
-          avatar: data.avatar,
-        });
+      .then((userData) => {
+        user.setUserInfo(userData);
+        avatarTypePopup.close();
       })
-      .catch((err) => console.log(err))
+      .catch((err) => console.log(`Ошибка загрузки данных: ${err}`))
       .finally(() =>
         renderLoading(false, document.forms.form_type_avatar, "Cохранить")
       );
-    avatarTypePopup.close();
   },
 });
 
@@ -163,9 +151,9 @@ const delTypePopup = new PopupWithApprove({
       .then(() => {
         cardElement.remove();
         cardElement = null;
+        delTypePopup.close();
       })
-      .catch((err) => console.log(err));
-    delTypePopup.close();
+      .catch((err) => console.log(`Ошибка загрузки данных: ${err}`));
   },
 });
 
